@@ -1,0 +1,173 @@
+.home-container {
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    padding-top: 5%;
+    background-image: url('project://database/Assets/Texture/Menu/Background/Green-fields/portrait.jpg?fileID=2800000&guid=86d61da490e9b0143a4edf7fe518f593&type=3#portrait');
+}
+
+.home-logo-container {
+    background-image: url('project://database/Assets/Texture/Menu/Title.png?fileID=2800000&guid=6dbe388986f453c42ac01538793b6684&type=3#Title');
+    height: 30%;
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.home-play-container {
+    height: 40%;
+}
+
+.home-play-button {
+    background-image: url('project://database/Assets/Texture/Menu/PlayAction.png?fileID=2800000&guid=2577448581f4f5d49ad45f782c04c872&type=3#PlayAction');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.actions-container {
+    height: 30%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.actions-facebook {
+    background-image: url('project://database/Assets/Texture/Menu/FacebookAction.png?fileID=2800000&guid=75c5e6235c7733346951b32ee84db976&type=3#FacebookAction');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 30%;
+}
+
+.actions-options {
+    background-image: url('project://database/Assets/Texture/Menu/OptionsAction.png?fileID=2800000&guid=3a7567ed1003f2747938a638e4602875&type=3#OptionsAction');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 30%;
+}
+
+.options-container {
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    background-image: url('project://database/Assets/Texture/Menu/Background/Green-fields/portrait.jpg?fileID=2800000&guid=86d61da490e9b0143a4edf7fe518f593&type=3#portrait');
+}
+
+.options-panel {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Texture/Menu/OptionsContainer.png?fileID=2800000&guid=de616268034b5bc49bcaf9a7b87ec86a&type=3#OptionsContainer');
+    -unity-background-scale-mode: scale-to-fit;
+    height: 70%;
+    padding-top: 0;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 0;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.slider {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20%;
+}
+
+.slider .unity-label {
+    background-image: url('project://database/Assets/Texture/Menu/Slider/MusicTitle.png?fileID=2800000&guid=569929b9f1d48c247a238f3204b64ab0&type=3#MusicTitle');
+    height: 25px;
+    -unity-background-scale-mode: scale-to-fit;
+    align-items: flex-start;
+    -unity-text-align: upper-left;
+    -unity-slice-left: 0;
+    width: 100%;
+    max-width: none;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 0;
+    display: none;
+}
+
+.slider .unity-base-slider__tracker {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Texture/Menu/SliderTracker.png?fileID=2800000&guid=299bad816cce09d4099d38dd2caddfbb&type=3#SliderTracker');
+    height: 100%;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: stretch-to-fill;
+    position: relative;
+    width: 100%;
+}
+
+.slider .unity-base-slider__dragger {
+    background-image: url('project://database/Assets/Texture/Menu/SliderThumb.png?fileID=2800000&guid=b16bf76910d443343b74ed9fb0b89794&type=3#SliderThumb');
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: stretch-to-fill;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 0;
+    max-width: none;
+    max-height: none;
+}
+
+.slider .unity-base-slider__drag-container {
+    height: 15px;
+    position: absolute;
+    width: 100%;
+    align-items: center;
+}
+
+.options-slider {
+    background-image: url('project://database/Assets/Texture/Menu/Slider/MusicTitle.png?fileID=2800000&guid=569929b9f1d48c247a238f3204b64ab0&type=3#MusicTitle');
+    -unity-background-scale-mode: scale-to-fit;
+    height: 40%;
+    padding-bottom: 0;
+    margin-bottom: 20%;
+    justify-content: flex-end;
+}
+
+.options-sliders {
+    padding-top: 20%;
+}

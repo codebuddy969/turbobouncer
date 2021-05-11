@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/styles.uss?fileID=7433441132597879392&amp;guid=1d1d5c149980e314888e1453ad25fca7&amp;type=3#styles" />
+    <ui:VisualElement name="options-container" class="options-container">
+        <ui:VisualElement name="options-panel" class="options-panel">
+            <ui:VisualElement name="options-sliders" class="options-sliders">
+                <ui:VisualElement name="options-slider" class="options-slider">
+                    <ui:Slider value="100" high-value="100" focusable="false" show-input-field="false" inverted="false" class="slider" />
+                </ui:VisualElement>
+                <ui:VisualElement name="options-slider" class="options-slider">
+                    <ui:Slider value="100" high-value="100" focusable="false" show-input-field="false" inverted="false" class="slider" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="actions-container" class="actions-container">
+            <ui:Button name="actions-facebook" class="actions-facebook" />
+            <ui:Button name="actions-options" class="actions-options" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

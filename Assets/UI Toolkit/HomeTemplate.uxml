@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/styles.uss?fileID=7433441132597879392&amp;guid=1d1d5c149980e314888e1453ad25fca7&amp;type=3#styles" />
+    <ui:VisualElement name="home-container" class="home-container">
+        <ui:VisualElement name="home-logo-container" class="home-logo-container" />
+        <ui:VisualElement name="home-play-container" class="home-play-container">
+            <ui:Button name="home-play-button" class="home-play-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="actions-container" class="actions-container" style="padding-bottom: 0;">
+            <ui:Button name="actions-facebook" class="actions-facebook" />
+            <ui:Button name="actions-options" class="actions-options" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
