@@ -97,8 +97,6 @@
 
 .slider {
     flex-direction: column;
-    width: 100%;
-    margin-top: 20%;
 }
 
 .slider .unity-label {
@@ -162,12 +160,10 @@
 .options-slider {
     background-image: url('project://database/Assets/Texture/Menu/Slider/MusicTitle.png?fileID=2800000&guid=569929b9f1d48c247a238f3204b64ab0&type=3#MusicTitle');
     -unity-background-scale-mode: scale-to-fit;
-    height: 40%;
     padding-bottom: 0;
-    margin-bottom: 20%;
     justify-content: flex-end;
+    height: 157px;
 }
 
 .options-sliders {
-    padding-top: 20%;
 }

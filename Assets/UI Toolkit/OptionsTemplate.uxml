@@ -6,9 +6,6 @@
                 <ui:VisualElement name="options-slider" class="options-slider">
                     <ui:Slider value="100" high-value="100" focusable="false" show-input-field="false" inverted="false" class="slider" />
                 </ui:VisualElement>
-                <ui:VisualElement name="options-slider" class="options-slider">
-                    <ui:Slider value="100" high-value="100" focusable="false" show-input-field="false" inverted="false" class="slider" />
-                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="actions-container" class="actions-container">
