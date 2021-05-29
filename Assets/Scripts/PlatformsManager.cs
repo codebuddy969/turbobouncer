@@ -114,10 +114,8 @@ public class PlatformsManager : MonoBehaviour
 
         string[] entities = new string[] { "fireEnemy", "panzerEnemy", "bombEnemy", "powerBoost", "healthBoost", "scoreBoost" };
 
-        string randomTag = entities[index];
-
         cube.name = "gameEntity";
 
-//        cube.transform.gameObject.tag = randomTag;
+        cube.transform.GetChild(0).name = entities[index];
     }
 }
