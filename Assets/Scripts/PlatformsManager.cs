@@ -95,7 +95,9 @@ public class PlatformsManager : MonoBehaviour
         float dividedPosition = scale.x / 2;
         float randomHorizontalPosition = Random.Range(-dividedPosition, dividedPosition);
 
-        GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };
+        // GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };
+
+        GameObject[] enemy = new GameObject[] { heart, bomb, thorns, energy, score, thorns };
 
         GameObject objectModel = Instantiate(enemy[index]) as GameObject;
 
@@ -106,13 +108,15 @@ public class PlatformsManager : MonoBehaviour
 
         cube.transform.position = new Vector3(
             position.x + randomHorizontalPosition,
-            position.y + 0.5f,
+            position.y + 1.0f,
             position.z
         );
 
-        cube.AddComponent<BoxCollider>();
+        //cube.AddComponent<BoxCollider>();
 
-        string[] entities = new string[] { "fireEnemy", "panzerEnemy", "bombEnemy", "powerBoost", "healthBoost", "scoreBoost" };
+        //string[] entities = new string[] { "fireEnemy", "panzerEnemy", "bombEnemy", "powerBoost", "healthBoost", "scoreBoost" };
+
+        string[] entities = new string[] { "healthBoost", "healthBoost", "healthBoost", "healthBoost", "healthBoost", "healthBoost" };
 
         cube.name = "gameEntity";
 

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5504259448447132138}
   - component: {fileID: 2260674682658004243}
   - component: {fileID: 4965491948096038471}
+  - component: {fileID: 4254952370126509328}
+  - component: {fileID: 4729289671240498775}
   m_Layer: 0
   m_Name: Thorns
   m_TagString: Untagged
@@ -100,3 +102,28 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &4254952370126509328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532358970491185615}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0676592, y: 0.05150814, z: 0.043795496}
+  m_Center: {x: 0, y: 9.313228e-10, z: 0.021897748}
+--- !u!114 &4729289671240498775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532358970491185615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a97137fffdc7f4190880e1b81ce49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

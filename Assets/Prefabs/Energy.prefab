@@ -9799,6 +9799,7 @@ GameObject:
   - component: {fileID: 7029081522026847337}
   - component: {fileID: 1467224086378177010}
   - component: {fileID: 6631421639687178049}
+  - component: {fileID: 2203561760585044998}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -9883,3 +9884,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2203561760585044998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329538521501199994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7fe0abac1371340861f7e454c1009d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

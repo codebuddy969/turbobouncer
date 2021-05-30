@@ -12,10 +12,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject healthSlider;
     public GameObject energyExplosionPrefab;
 
-    public Rigidbody playerBody;
-
     private GameObject fireInstance;
     private GameObject fireInstanceContainer;
+
+    private Rigidbody playerBody;
 
     private Image healthBar;
     private Image energyBar;
@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
         fireInstanceContainer = new GameObject();
 
         playerBody = gameObject.GetComponent<Rigidbody>();
+
         energyBar = energySlider.gameObject.transform.GetChild(0).GetComponent<Image>();
         healthBar = healthSlider.gameObject.transform.GetChild(0).GetComponent<Image>();
     }
@@ -40,12 +41,17 @@ public class PlayerManager : MonoBehaviour
 
         if ((joystick.Horizontal >= .1f) && !isGrounded)
         {
-            playerBody.AddForce(Vector3.right * joystick.Horizontal, ForceMode.VelocityChange);
+            playerBody.AddForce(Vector3.right * (joystick.Horizontal / 2), ForceMode.VelocityChange);
         }
 
         if ((joystick.Horizontal <= -.1f) && !isGrounded)
         {
-            playerBody.AddForce(Vector3.left * -joystick.Horizontal, ForceMode.VelocityChange);
+            playerBody.AddForce(Vector3.left * -(joystick.Horizontal / 2), ForceMode.VelocityChange);
+        }
+
+        if (Input.GetKeyDown("space"))
+        {
+            jumpForceIncrease();
         }
 
         energyBar.fillAmount += 0.004f;
@@ -88,17 +94,9 @@ public class PlayerManager : MonoBehaviour
                 }
                 Destroy(collision.gameObject);
                 break;
-            case "bombEnemy":
-                if (!fireBallImmutableStatus)
-                {
-                    //healthSlider.value -= 0.40f;
-                }
-                Destroy(collision.gameObject);
-                //initializeBombExplosion(collision.gameObject.transform.position);
-                break;
             case "healthBoost":
                 //healthSlider.value += 0.50f;
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
                 break;
             case "powerBoost":
                 //powerSlider.value += 0.99f;
@@ -170,7 +168,6 @@ public class PlayerManager : MonoBehaviour
 
     private void decreaseHealthOnIgnition()
     {
-        Debug.Log(fireBallIgnitionStatus);
         if (fireBallIgnitionStatus)
         {
             healthBar.fillAmount -= 0.0001f;
