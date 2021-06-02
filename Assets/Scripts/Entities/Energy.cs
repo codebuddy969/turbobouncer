@@ -13,6 +13,8 @@ public class Energy : MonoBehaviour
     {
         if (collision.collider.name == "Player")
         {
+            EventsManager.current.turboJumpNotificationShow();
+            EventsManager.current.jumpMultiplierChange();
             Destroy(gameObject);
         }
     }

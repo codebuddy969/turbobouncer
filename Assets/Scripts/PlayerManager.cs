@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,33 +10,29 @@ public class PlayerManager : MonoBehaviour
     public GameObject healthSlider;
     public GameObject energyExplosionPrefab;
 
-    private GameObject fireInstance;
-    private GameObject fireInstanceContainer;
-
     private Rigidbody playerBody;
 
     private Image healthBar;
     private Image energyBar;
 
+    private int jumpMultiplier = 15;
+
+    private bool isIgnited = false;
     private bool isGrounded = false;
-    private bool fireBallIgnitionStatus = false;
-    private bool fireBallImmutableStatus = false;
 
     void Start()
     {
-        fireInstance = new GameObject();
-        fireInstanceContainer = new GameObject();
-
         playerBody = gameObject.GetComponent<Rigidbody>();
 
         energyBar = energySlider.gameObject.transform.GetChild(0).GetComponent<Image>();
         healthBar = healthSlider.gameObject.transform.GetChild(0).GetComponent<Image>();
+
+        EventsManager.current.onJumpMultiplierChange += changeJumpMultiplierValue;
+        EventsManager.current.onIgnitePlayer += ignitePlayer;
     }
 
     void Update()
     {
-        decreaseHealthOnIgnition();
-
         if ((joystick.Horizontal >= .1f) && !isGrounded)
         {
             playerBody.AddForce(Vector3.right * (joystick.Horizontal / 2), ForceMode.VelocityChange);
@@ -49,12 +43,11 @@ public class PlayerManager : MonoBehaviour
             playerBody.AddForce(Vector3.left * -(joystick.Horizontal / 2), ForceMode.VelocityChange);
         }
 
-        if (Input.GetKeyDown("space"))
-        {
-            jumpForceIncrease();
-        }
+        if (Input.GetKeyDown("space")) jumpForceIncrease();
 
-        energyBar.fillAmount += 0.004f;
+        if (isIgnited) healthBar.fillAmount -= 0.0001f;
+
+        energyBar.fillAmount += 0.006f;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -62,51 +55,11 @@ public class PlayerManager : MonoBehaviour
         playerBody.transform.position = new Vector3(playerBody.transform.position.x, playerBody.transform.position.y, 0);
 
         environmentCollisions(collision);
-
-        entityiesCollisions(collision);
     }
 
     void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
-    }
-
-    private void entityiesCollisions(Collision collision)
-    {
-        if (collision.collider.transform.childCount == 0)
-        {
-            return;
-        }
-
-        switch (collision.collider.transform.GetChild(0).name)
-        {
-            case "fireEnemy":
-                if (!fireBallImmutableStatus)
-                {
-                    setTheBallOnFire();
-                }
-                Destroy(collision.gameObject);
-                break;
-            case "panzerEnemy":
-                if (!fireBallImmutableStatus)
-                {
-                    //healthSlider.value -= 0.15f;
-                }
-                Destroy(collision.gameObject);
-                break;
-            case "healthBoost":
-                //healthSlider.value += 0.50f;
-                //Destroy(collision.gameObject);
-                break;
-            case "powerBoost":
-                //powerSlider.value += 0.99f;
-                Destroy(collision.gameObject);
-                break;
-            case "scoreBoost":
-                //scoreBoostOperations();
-                Destroy(collision.gameObject);
-                break;
-        }
     }
 
     private void environmentCollisions(Collision collision)
@@ -138,40 +91,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void setTheBallOnFire()
+    public void changeJumpMultiplierValue()
     {
-        if (!fireBallIgnitionStatus)
-        {
-            Vector3 position = new Vector3(
-                playerBody.transform.position.x,
-                playerBody.transform.position.y,
-                playerBody.transform.position.z - 1.5f
-            );
-
-            var rotation = Quaternion.Euler(
-                transform.rotation.eulerAngles.x,
-                transform.rotation.eulerAngles.y,
-                transform.rotation.eulerAngles.z
-            );
-
-            fireInstance = Instantiate(firePrefab, position, rotation, fireInstanceContainer.transform) as GameObject;
-
-            fireInstance.name = "FireBallInstance";
-
-            fireInstanceContainer.name = "FireBall";
-
-            fireInstance.transform.parent = gameObject.transform;
-
-            fireBallIgnitionStatus = true;
-        }
-    }
-
-    private void decreaseHealthOnIgnition()
-    {
-        if (fireBallIgnitionStatus)
-        {
-            healthBar.fillAmount -= 0.0001f;
-        }
+        jumpMultiplier = 25;
     }
 
     public void jumpForceIncrease()
@@ -186,9 +108,28 @@ public class PlayerManager : MonoBehaviour
 
             energyBar.fillAmount = 0;
 
-            playerBody.AddForce(Vector3.up * 15, ForceMode.VelocityChange);
+            playerBody.AddForce(Vector3.up * jumpMultiplier, ForceMode.VelocityChange);
+
+            jumpMultiplier = 15;
 
             Object.Destroy(prefab, 3.0f);
         }
+    }
+
+    public void ignitePlayer()
+    {
+        ParticleSystem fire = gameObject.transform.Find("Fire").GetComponent<ParticleSystem>();
+
+        var emission = fire.emission;
+
+        emission.enabled = true;
+
+        isIgnited = true;
+    }
+
+    private void OnDestroy()
+    {
+        EventsManager.current.onJumpMultiplierChange -= changeJumpMultiplierValue;
+        EventsManager.current.onIgnitePlayer -= ignitePlayer;
     }
 }

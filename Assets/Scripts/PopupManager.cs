@@ -4,21 +4,15 @@ using UnityEngine.UI;
 
 public class PopupManager : MonoBehaviour
 {
-    public float duration;
-    // Start is called before the first frame update
-    void Start()
+    public void callPopup()
     {
+        gameObject.transform.localScale = new Vector3(1, 1, 1);
+
         Image panelImage = gameObject.GetComponent<Image>();
         Color panelColor = panelImage.color;
         panelColor.a = 0.5f;
         panelImage.DOColor(panelColor, 2f);
 
-        gameObject.transform.FindChild("Screen").transform.DOScale(new Vector3(1, 1, 1), duration).SetEase(Ease.InOutElastic);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.transform.Find("Screen").transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic);
     }
 }

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformsManager : MonoBehaviour
 {
-
     private CommonConfig config = new CommonConfig();
 
     public int platformsCount;
@@ -95,9 +92,7 @@ public class PlatformsManager : MonoBehaviour
         float dividedPosition = scale.x / 2;
         float randomHorizontalPosition = Random.Range(-dividedPosition, dividedPosition);
 
-        // GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };
-
-        GameObject[] enemy = new GameObject[] { heart, bomb, thorns, energy, score, thorns };
+        GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };
 
         GameObject objectModel = Instantiate(enemy[index]) as GameObject;
 
