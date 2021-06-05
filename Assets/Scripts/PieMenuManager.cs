@@ -53,7 +53,12 @@ public class PieMenuManager : MonoBehaviour
         bool widthCondition = mousePosition.x > widthDistance && mousePosition.x < widthDistance + containerSize.x;
         bool heightCondition = mousePosition.y > heightDistance && mousePosition.y < heightDistance + containerSize.y;
 
-        if (widthCondition && heightCondition)
+        var dx = mousePosition.x - (screenSize.x / 2);
+        var dy = mousePosition.y - (screenSize.y / 2);
+
+        var circle = Mathf.Sqrt(dx * dx + dy * dy);
+
+        if (widthCondition && heightCondition && (circle > 80))
         {
             toVector2M = new Vector2(mousePosition.x / screenSize.x, mousePosition.y / screenSize.y);
 

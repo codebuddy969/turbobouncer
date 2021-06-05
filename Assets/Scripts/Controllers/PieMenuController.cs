@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PieMenuController : MonoBehaviour
 {
@@ -33,5 +34,10 @@ public class PieMenuController : MonoBehaviour
 
         }
 
+    }
+
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

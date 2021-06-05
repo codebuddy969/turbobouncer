@@ -32,12 +32,36 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    //----------------------------------------------------
+
     public event Action onIgnitePlayer;
     public void ignitePlayer()
     {
         if (onIgnitePlayer != null)
         {
             onIgnitePlayer();
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action onGameDataSave;
+    public void gameDataSave()
+    {
+        if (onGameDataSave != null)
+        {
+            onGameDataSave();
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action onGameDataLoad;
+    public void gameDataLoad()
+    {
+        if (onGameDataLoad != null)
+        {
+            onGameDataLoad();
         }
     }
 }
