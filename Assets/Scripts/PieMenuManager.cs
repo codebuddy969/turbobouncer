@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class PieMenuManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PieMenuManager : MonoBehaviour
 
     void Start()
     {
+        setOptionsCountersOnLoad();
+
         curMenuItem = 0;
         oldMenuItem = 0;
         menuItem = buttons.Count;
@@ -37,6 +40,21 @@ public class PieMenuManager : MonoBehaviour
                 buttons[curMenuItem].sceneImage.color = buttons[curMenuItem].pressedColor;
             }
         }
+    }
+
+    private void setOptionsCountersOnLoad()
+    {
+        GameDataConfig config = DBOperationsController.element.LoadSaving();
+
+        TextMeshProUGUI turboJumperCount = gameObject.transform.Find("turboJumperCount").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI healthBoostCount = gameObject.transform.Find("healthBoostCount").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI untouchableCount = gameObject.transform.Find("untouchableCount").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI firefigherCount  = gameObject.transform.Find("firefigherCount").GetComponent<TextMeshProUGUI>();
+
+        turboJumperCount.text = config.TurboJumperCount.ToString();
+        healthBoostCount.text = config.HealthBoostCount.ToString();
+        untouchableCount.text = config.UntouchableCount.ToString();
+        firefigherCount.text  = config.FirefigherCount.ToString();
     }
 
     public void GetCurrentMenuItem()

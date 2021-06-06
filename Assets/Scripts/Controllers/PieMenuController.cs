@@ -13,10 +13,6 @@ public class PieMenuController : MonoBehaviour
     {
         Button actionButton = pieMenuAction.GetComponent<Button>();
 
-        GameDataConfig config = DBOperationsController.element.LoadSaving();
-
-        Debug.Log(config);
-
         if (!pieMenuOpened)
         {
             pieMenuObject.transform.rotation = Quaternion.identity;

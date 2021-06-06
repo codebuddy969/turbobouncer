@@ -8,8 +8,13 @@ public class GameDataConfig
     public float musicLevel = 0.7f;
     public float effectsLevel = 1.0f;
 
-    public int firefigherCount = 1;
-    public int untouchableCount = 1;
-    public int healthBoostCount = 1;
-    public int turboJumperCount = 1;
+    private int firefigherCount = 5;
+    private int untouchableCount = 1;
+    private int healthBoostCount = 2;
+    private int turboJumperCount = 3;
+
+    public int FirefigherCount { get => firefigherCount; set => firefigherCount = value; }
+    public int UntouchableCount { get => untouchableCount; set => untouchableCount = value; }
+    public int HealthBoostCount { get => healthBoostCount; set => healthBoostCount = value; }
+    public int TurboJumperCount { get => turboJumperCount; set => turboJumperCount = value; }
 }
