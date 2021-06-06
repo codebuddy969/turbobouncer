@@ -6,6 +6,13 @@ public class DBOperationsController : MonoBehaviour
 {
     private BinaryFormatter formatter = new BinaryFormatter();
 
+    public static DBOperationsController element;
+
+    private void Awake()
+    {
+        element = this;
+    }
+
     public void CreateSaving(GameDataConfig data)
     {
         CreateFileStream(Application.persistentDataPath + "/gameData.save", data);
@@ -24,8 +31,11 @@ public class DBOperationsController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Save file not found in " + path);
-            return null;
+            GameDataConfig config = new GameDataConfig();
+
+            CreateSaving(config);
+
+            return config;
         }
     }
 

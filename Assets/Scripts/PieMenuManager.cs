@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PieMenuManager : MonoBehaviour
 {
-    public List<MenuButton> buttons = new List<MenuButton>();
+    public List<MenuButtonConfig> buttons = new List<MenuButtonConfig>();
 
     private int menuItem;
     private int curMenuItem;
@@ -22,7 +20,7 @@ public class PieMenuManager : MonoBehaviour
         oldMenuItem = 0;
         menuItem = buttons.Count;
 
-        foreach (MenuButton button in buttons)
+        foreach (MenuButtonConfig button in buttons)
         {
             button.sceneImage.color = button.normalColor;
         }
@@ -30,11 +28,14 @@ public class PieMenuManager : MonoBehaviour
 
     void Update()
     {
-        GetCurrentMenuItem();
-
-        if (Input.GetButtonDown("Fire1"))
+        if (DataStoreManager.store.pieMenuOpenedStatus)
         {
-            ButtonAction();
+            GetCurrentMenuItem();
+
+            if (Input.GetButtonDown("Fire1") && curMenuItem >= 0 && curMenuItem <= menuItem - 1)
+            {
+                buttons[curMenuItem].sceneImage.color = buttons[curMenuItem].pressedColor;
+            }
         }
     }
 
@@ -71,7 +72,7 @@ public class PieMenuManager : MonoBehaviour
 
             curMenuItem = (int)(angle / (360 / menuItem));
 
-            if (curMenuItem != oldMenuItem)
+            if (curMenuItem >= 0 && (curMenuItem <= menuItem - 1) && curMenuItem != oldMenuItem)
             {
                 buttons[oldMenuItem].sceneImage.color = buttons[oldMenuItem].normalColor;
                 oldMenuItem = curMenuItem;
@@ -83,22 +84,4 @@ public class PieMenuManager : MonoBehaviour
             curMenuItem = menuItem + 1;
         }
     }
-
-    public void ButtonAction()
-    {
-        if (menuItem >= curMenuItem)
-        {
-            buttons[curMenuItem].sceneImage.color = buttons[curMenuItem].pressedColor;
-        }
-    }
-}
-
-[System.Serializable]
-public class MenuButton
-{
-    public string name;
-    public Image sceneImage;
-    public Color normalColor = Color.white;
-    public Color highlightedColor = Color.grey;
-    public Color pressedColor = Color.gray;
 }

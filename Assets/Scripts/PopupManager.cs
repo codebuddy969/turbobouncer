@@ -1,18 +1,26 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PopupManager : MonoBehaviour
 {
+    public void Start()
+    {
+        EventsManager.current.onPopupAction += callPopup;
+    }
+
     public void callPopup()
     {
-        gameObject.transform.localScale = new Vector3(1, 1, 1);
+        gameObject.transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic);
+    }
 
-        Image panelImage = gameObject.GetComponent<Image>();
-        Color panelColor = panelImage.color;
-        panelColor.a = 0.5f;
-        panelImage.DOColor(panelColor, 2f);
+    public void closePopup()
+    {
+        gameObject.transform.DOScale(new Vector3(0, 0, 0), 0.2f);
+    }
 
-        gameObject.transform.Find("Screen").transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic);
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

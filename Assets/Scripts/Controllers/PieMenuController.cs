@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PieMenuController : MonoBehaviour
 {
@@ -14,30 +13,49 @@ public class PieMenuController : MonoBehaviour
     {
         Button actionButton = pieMenuAction.GetComponent<Button>();
 
+        GameDataConfig config = DBOperationsController.element.LoadSaving();
+
+        Debug.Log(config);
+
         if (!pieMenuOpened)
         {
+            pieMenuObject.transform.rotation = Quaternion.identity;
+
             actionButton.interactable = false;
             pieMenuObject.transform.DOScale(new Vector3(1, 1, 1), duration).SetEase(Ease.InOutSine);
             pieMenuObject.transform.DORotate(new Vector3(0, 0, 720), duration, RotateMode.WorldAxisAdd).SetEase(Ease.InOutSine).OnComplete(() => {
                 pieMenuOpened = true;
                 actionButton.interactable = true;
+                DataStoreManager.store.pieMenuOpenedStatus = true;
             });
-
         } else {
-
             actionButton.interactable = false;
             pieMenuObject.transform.DOScale(new Vector3(0, 0, 0), duration).SetEase(Ease.InOutSine);
             pieMenuObject.transform.DORotate(new Vector3(0, 0, -720), duration, RotateMode.WorldAxisAdd).SetEase(Ease.InOutSine).OnComplete(() => {
                 pieMenuOpened = false;
                 actionButton.interactable = true;
+                DataStoreManager.store.pieMenuOpenedStatus = false;
             });
-
         }
 
     }
 
-    public void loadMainMenu()
+    public void hidePieMenu()
     {
-        SceneManager.LoadScene("Menu");
+        Button actionButton = pieMenuAction.GetComponent<Button>();
+
+        actionButton.interactable = false;
+        pieMenuObject.transform.DOScale(new Vector3(0, 0, 0), duration).SetEase(Ease.InOutSine);
+        pieMenuObject.transform.DORotate(new Vector3(0, 0, -720), duration, RotateMode.WorldAxisAdd).SetEase(Ease.InOutSine).OnComplete(() => {
+            pieMenuOpened = false;
+            actionButton.interactable = true;
+            DataStoreManager.store.pieMenuOpenedStatus = false;
+        });
+    }
+
+    public void loadQuitPopup()
+    {
+        hidePieMenu();
+        EventsManager.current.popupAction();
     }
 }

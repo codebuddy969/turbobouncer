@@ -45,23 +45,12 @@ public class EventsManager : MonoBehaviour
 
     //----------------------------------------------------
 
-    public event Action onGameDataSave;
-    public void gameDataSave()
+    public event Action onPopupAction;
+    public void popupAction()
     {
-        if (onGameDataSave != null)
+        if (onPopupAction != null)
         {
-            onGameDataSave();
-        }
-    }
-
-    //----------------------------------------------------
-
-    public event Action onGameDataLoad;
-    public void gameDataLoad()
-    {
-        if (onGameDataLoad != null)
-        {
-            onGameDataLoad();
+            onPopupAction();
         }
     }
 }
