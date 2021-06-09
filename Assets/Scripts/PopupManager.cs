@@ -1,5 +1,8 @@
 using DG.Tweening;
+using System;
+using TMPro;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PopupManager : MonoBehaviour
@@ -9,9 +12,15 @@ public class PopupManager : MonoBehaviour
         EventsManager.current.onPopupAction += callPopup;
     }
 
-    public void callPopup()
+    public void callPopup(Hashtable parameters, Action callback) 
     {
-        gameObject.transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic);
+        gameObject.transform.Find("QuestionText").GetComponent<TextMeshProUGUI>().text = (string)parameters["message"];
+
+        gameObject.transform.Find("Close").gameObject.SetActive((bool)parameters["closeButton"]);
+        gameObject.transform.Find("Quit").gameObject.SetActive((bool)parameters["quitButton"]);
+        gameObject.transform.Find("Options").gameObject.SetActive((bool)parameters["optionsButtons"]);
+
+        gameObject.transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic).OnComplete(() => { callback?.Invoke(); });
     }
 
     public void closePopup()
@@ -22,5 +31,10 @@ public class PopupManager : MonoBehaviour
     public void loadMainMenu()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

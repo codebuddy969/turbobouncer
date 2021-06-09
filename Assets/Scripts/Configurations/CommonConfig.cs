@@ -1,4 +1,4 @@
 public class CommonConfig
 {
-    public int platformsCount = 10;
+    public int platformsCount = 50;
 }

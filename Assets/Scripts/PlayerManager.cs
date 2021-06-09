@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -17,11 +18,14 @@ public class PlayerManager : MonoBehaviour
 
     private int jumpMultiplier = 15;
 
+    private bool isDead = false;
     private bool isIgnited = false;
     private bool isGrounded = false;
 
     void Start()
     {
+        Time.timeScale = 1;
+
         playerBody = gameObject.GetComponent<Rigidbody>();
 
         energyBar = energySlider.gameObject.transform.GetChild(0).GetComponent<Image>();
@@ -48,6 +52,8 @@ public class PlayerManager : MonoBehaviour
         if (isIgnited) healthBar.fillAmount -= 0.0001f;
 
         energyBar.fillAmount += 0.006f;
+
+        healthEmpty();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -60,6 +66,23 @@ public class PlayerManager : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
+    }
+
+    private void healthEmpty()
+    {
+        if (healthBar.fillAmount == 0 && !isDead)
+        {
+            Hashtable parameters = new Hashtable();
+
+            parameters["quitButton"] = false;
+            parameters["closeButton"] = false;
+            parameters["optionsButtons"] = true;
+            parameters["message"] = "Sorry, but you lost, want to try again ?";
+
+            EventsManager.current.popupAction(parameters, () => { Time.timeScale = 0; });
+
+            isDead = true;
+        }
     }
 
     private void environmentCollisions(Collision collision)

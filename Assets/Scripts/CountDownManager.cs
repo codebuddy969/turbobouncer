@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class CountDownManager : MonoBehaviour
 {
+    private CommonConfig config = new CommonConfig();
+
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
     public TextMeshProUGUI timeText;
 
     private void Start()
     {
-        // Starts the timer automatically
         timerIsRunning = true;
 
         timeText = gameObject.GetComponent<TextMeshProUGUI>();
+
+        timeRemaining = config.platformsCount * timeRemaining;
     }
 
     void Update()
@@ -29,9 +30,17 @@ public class CountDownManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 timerIsRunning = false;
+
+                Hashtable parameters = new Hashtable();
+
+                parameters["quitButton"] = false;
+                parameters["closeButton"] = false;
+                parameters["optionsButtons"] = true;
+                parameters["message"] = "Sorry, timer is out, want to try again ?";
+
+                EventsManager.current.popupAction(parameters, () => { Time.timeScale = 0; });
             }
         }
     }

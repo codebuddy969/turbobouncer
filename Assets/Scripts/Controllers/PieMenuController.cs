@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PieMenuController : MonoBehaviour
 {
@@ -52,6 +53,14 @@ public class PieMenuController : MonoBehaviour
     public void loadQuitPopup()
     {
         hidePieMenu();
-        EventsManager.current.popupAction();
+
+        Hashtable parameters = new Hashtable();
+
+        parameters["quitButton"] = true;
+        parameters["closeButton"] = true;
+        parameters["optionsButtons"] = false;
+        parameters["message"] = "Are you sure you want to quit ?";
+
+        EventsManager.current.popupAction(parameters, () => {});
     }
 }

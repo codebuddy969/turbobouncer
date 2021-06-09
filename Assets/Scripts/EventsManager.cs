@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using System.Collections;
 public class EventsManager : MonoBehaviour
 {
     public static EventsManager current;
@@ -45,12 +45,12 @@ public class EventsManager : MonoBehaviour
 
     //----------------------------------------------------
 
-    public event Action onPopupAction;
-    public void popupAction()
+    public event Action<Hashtable, Action> onPopupAction;
+    public void popupAction(Hashtable parameters, Action callback)
     {
         if (onPopupAction != null)
         {
-            onPopupAction();
+            onPopupAction(parameters, callback);
         }
     }
 }
