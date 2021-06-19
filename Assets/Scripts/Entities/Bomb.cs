@@ -9,9 +9,9 @@ public class Bomb : MonoBehaviour
         healthBar = GameObject.Find("HealthSlider").transform.GetChild(0).GetComponent<Image>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.name == "Player")
+        if (collider.gameObject.name == "Player")
         {
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.transform.Find("Sphere002").GetComponent<MeshRenderer>().enabled = false;

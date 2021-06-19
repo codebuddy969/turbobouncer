@@ -10,9 +10,9 @@ public class Health : MonoBehaviour
         healthBar = GameObject.Find("HealthSlider").transform.GetChild(0).GetComponent<Image>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.name == "Player")
+        if (collider.gameObject.name == "Player")
         {
             Destroy(gameObject);
             healthBar.fillAmount = healthBar.fillAmount + 0.60f;

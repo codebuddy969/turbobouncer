@@ -10,6 +10,11 @@ public class PieMenuController : MonoBehaviour
     public float duration;
     private bool pieMenuOpened = false;
 
+    public void Start()
+    {
+        EventsManager.current.onHidePieMenu += hidePieMenu;
+    }
+
     public void showPieMenu()
     {
         Button actionButton = pieMenuAction.GetComponent<Button>();

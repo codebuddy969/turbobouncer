@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviour
 
         EventsManager.current.onJumpMultiplierChange += changeJumpMultiplierValue;
         EventsManager.current.onIgnitePlayer += ignitePlayer;
+        EventsManager.current.onPieOptionClicked += pieOptionClicked;
     }
 
     void Update()
@@ -53,7 +54,10 @@ public class PlayerManager : MonoBehaviour
 
         energyBar.fillAmount += 0.006f;
 
-        healthEmpty();
+        if ((transform.position.y < -1) || (healthBar.fillAmount == 0 && !isDead))
+        {
+            playerFailed();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -68,21 +72,23 @@ public class PlayerManager : MonoBehaviour
         isGrounded = false;
     }
 
-    private void healthEmpty()
+    private void playerFailed()
     {
-        if (healthBar.fillAmount == 0 && !isDead)
-        {
-            Hashtable parameters = new Hashtable();
+        isDead = true;
 
-            parameters["quitButton"] = false;
-            parameters["closeButton"] = false;
-            parameters["optionsButtons"] = true;
-            parameters["message"] = "Sorry, but you lost, want to try again ?";
+        gameObject.transform.DetachChildren();
 
-            EventsManager.current.popupAction(parameters, () => { Time.timeScale = 0; });
+        Hashtable parameters = new Hashtable();
 
-            isDead = true;
-        }
+        parameters["time"] = 1;
+        parameters["quitButton"] = false;
+        parameters["closeButton"] = false;
+        parameters["optionsButtons"] = true;
+        parameters["message"] = "Sorry, but you lost, want to try again ?";
+
+        EventsManager.current.popupAction(parameters, () => { Time.timeScale = 0; });
+
+        Destroy(gameObject);
     }
 
     private void environmentCollisions(Collision collision)
@@ -139,15 +145,62 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void ignitePlayer()
+    public void ignitePlayer(bool status)
     {
         ParticleSystem fire = gameObject.transform.Find("Fire").GetComponent<ParticleSystem>();
 
         var emission = fire.emission;
 
-        emission.enabled = true;
+        emission.enabled = status;
 
-        isIgnited = true;
+        isIgnited = status;
+    }
+
+    public void pieOptionClicked(string name)
+    {
+        GameDataConfig game_config = DBOperationsController.element.LoadSaving();
+
+        switch (name)
+        {
+            case "firefighter":
+                if (isIgnited && game_config.FirefigherCount > 0)
+                {
+                    ignitePlayer(false);
+
+                    game_config.FirefigherCount = game_config.FirefigherCount - 1;
+                }
+            break;
+            case "timeboost":
+                if (game_config.TimeboostCount > 0)
+                {
+                    EventsManager.current.timeBoostAction(60);
+
+                    game_config.TimeboostCount = game_config.TimeboostCount - 1;
+                }
+            break;
+            case "turbojumper":
+                if (game_config.TurboJumperCount > 0)
+                {
+                    EventsManager.current.turboJumpNotificationShow();
+
+                    EventsManager.current.jumpMultiplierChange();
+
+                    game_config.TurboJumperCount = game_config.TurboJumperCount - 1;
+                }
+            break;
+            case "healthboost":
+                if (game_config.HealthBoostCount > 0)
+                {
+                    healthBar.fillAmount = 1;
+
+                    game_config.HealthBoostCount = game_config.HealthBoostCount - 1;
+                }
+            break;
+        }
+
+        EventsManager.current.hidePieMenu();
+
+        DBOperationsController.element.CreateSaving(game_config);
     }
 
     private void OnDestroy()

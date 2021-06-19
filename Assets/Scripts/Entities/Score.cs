@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.name == "Player")
+        if (collider.gameObject.name == "Player")
         {
             Destroy(gameObject);
         }

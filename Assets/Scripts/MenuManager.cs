@@ -8,18 +8,29 @@ public class MenuManager : MonoBehaviour
 
     public Canvas homeMenuScreen;
     public Canvas optionsMenuScreen;
+    public Canvas shopMenuScreen;
 
     public Slider musicSlider;
     public Slider effectsSlider;
 
     void Start()
     {
+        checkShopMenuScreenStatus();
+       
         config = DBOperationsController.element.LoadSaving();
 
         musicSlider.value = config.musicLevel;
         effectsSlider.value = config.effectsLevel;
+    }
 
-        optionsMenuScreen.enabled = false;
+    private void checkShopMenuScreenStatus()
+    {
+        bool shopMenuStatus = GlobalVariables.Get<bool>("openShopMenu");
+        if (shopMenuStatus)
+        {
+            showShopMenuScreen();
+            GlobalVariables.Set("openShopMenu", false);
+        }
     }
 
     public void PlayGame()
@@ -29,8 +40,16 @@ public class MenuManager : MonoBehaviour
 
     public void showOptionsMenu()
     {
-        homeMenuScreen.enabled = false;
-        optionsMenuScreen.enabled = true;
+        homeMenuScreen.gameObject.SetActive(false);
+        optionsMenuScreen.gameObject.SetActive(true);
+        shopMenuScreen.gameObject.SetActive(false);
+    }
+
+    public void showShopMenuScreen()
+    {
+        homeMenuScreen.gameObject.SetActive(false);
+        optionsMenuScreen.gameObject.SetActive(false);
+        shopMenuScreen.gameObject.SetActive(true);
     }
 
     public void musicValueChange(Slider slider)

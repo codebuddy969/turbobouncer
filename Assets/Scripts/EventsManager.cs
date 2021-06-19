@@ -34,12 +34,12 @@ public class EventsManager : MonoBehaviour
 
     //----------------------------------------------------
 
-    public event Action onIgnitePlayer;
-    public void ignitePlayer()
+    public event Action<bool> onIgnitePlayer;
+    public void ignitePlayer(bool status)
     {
         if (onIgnitePlayer != null)
         {
-            onIgnitePlayer();
+            onIgnitePlayer(status);
         }
     }
 
@@ -51,6 +51,50 @@ public class EventsManager : MonoBehaviour
         if (onPopupAction != null)
         {
             onPopupAction(parameters, callback);
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action<Hashtable, Action> onWinPopupAction;
+    public void winPopupAction(Hashtable parameters, Action callback)
+    {
+        if (onWinPopupAction != null)
+        {
+            onWinPopupAction(parameters, callback);
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action<string> onPieOptionClicked;
+    public void pieOptionClicked(string name)
+    {
+        if (onPieOptionClicked != null)
+        {
+            onPieOptionClicked(name);
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action<int> onTimeBoostAction;
+    public void timeBoostAction(int count)
+    {
+        if (onTimeBoostAction != null)
+        {
+            onTimeBoostAction(count);
+        }
+    }
+
+    //----------------------------------------------------
+
+    public event Action onHidePieMenu;
+    public void hidePieMenu()
+    {
+        if (onHidePieMenu != null)
+        {
+            onHidePieMenu();
         }
     }
 }

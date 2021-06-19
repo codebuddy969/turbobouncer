@@ -4,13 +4,11 @@ public class PlatformsManager : MonoBehaviour
 {
     private CommonConfig config = new CommonConfig();
 
-    public int platformsCount;
+    private int platformsCount;
     public int interval = 6;
-    public int lastPlatformDistance;
     public GameObject ball;
-    public Vector3 lastPlatformPosition = new Vector3(0, 3.0f, 0);
-    public bool positionAchieved = false;
-    public Vector3 primitivePosition;
+    private Vector3 lastPlatformPosition = new Vector3(0, 3.0f, 0);
+    private Vector3 primitivePosition;
 
     public GameObject platforms;
     public GameObject fire;
@@ -19,10 +17,10 @@ public class PlatformsManager : MonoBehaviour
     public GameObject bomb;
     public GameObject energy;
     public GameObject score;
-
+    public GameObject win;
     void Start()
     {
-        for (int i = 0; i < config.platformsCount; i += 1)
+        for (int i = 0; i <= config.platformsCount; i += 1)
         {
             generatePlatforms(i);
         }
@@ -83,22 +81,23 @@ public class PlatformsManager : MonoBehaviour
         rigidBody.constraints = RigidbodyConstraints.FreezePosition;
         rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 
-        createEntity(rigidBody.transform.position, platform.transform.localScale);
+        createEntity(rigidBody.transform.position, platform.transform.localScale, index);
     }
 
-    void createEntity(Vector3 position, Vector3 scale)
+    void createEntity(Vector3 position, Vector3 scale, int platformIndex)
     {
         int index = Random.Range(0, 6);
         float dividedPosition = scale.x / 2;
+        bool lastPlatform = config.platformsCount == platformIndex;
         float randomHorizontalPosition = Random.Range(-dividedPosition, dividedPosition);
 
         GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };
 
-        GameObject objectModel = Instantiate(enemy[index]) as GameObject;
+        GameObject objectModel = Instantiate(lastPlatform ? win : enemy[index]) as GameObject;
 
         GameObject cube = new GameObject();
 
-        objectModel.transform.localPosition = Vector3.zero;
+        objectModel.transform.localPosition = lastPlatform ? new Vector3(0, 0.45f, 0) : Vector3.zero;
         objectModel.transform.parent = cube.transform;
 
         cube.transform.position = new Vector3(

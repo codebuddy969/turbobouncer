@@ -20,7 +20,7 @@ public class PopupManager : MonoBehaviour
         gameObject.transform.Find("Quit").gameObject.SetActive((bool)parameters["quitButton"]);
         gameObject.transform.Find("Options").gameObject.SetActive((bool)parameters["optionsButtons"]);
 
-        gameObject.transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic).OnComplete(() => { callback?.Invoke(); });
+        gameObject.transform.DOScale(new Vector3(1, 1, 1), parameters["time"] != null ? (int)parameters["time"] : 2).SetEase(Ease.InOutElastic).OnComplete(() => { callback?.Invoke(); });
     }
 
     public void closePopup()

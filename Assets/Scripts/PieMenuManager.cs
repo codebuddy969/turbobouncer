@@ -17,7 +17,7 @@ public class PieMenuManager : MonoBehaviour
 
     void Start()
     {
-        setOptionsCountersOnLoad();
+        setOptionsCounters("default");
 
         curMenuItem = 0;
         oldMenuItem = 0;
@@ -27,6 +27,8 @@ public class PieMenuManager : MonoBehaviour
         {
             button.sceneImage.color = button.normalColor;
         }
+
+        EventsManager.current.onPieOptionClicked += setOptionsCounters;
     }
 
     void Update()
@@ -38,22 +40,26 @@ public class PieMenuManager : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && curMenuItem >= 0 && curMenuItem <= menuItem - 1)
             {
                 buttons[curMenuItem].sceneImage.color = buttons[curMenuItem].pressedColor;
+
+                EventsManager.current.pieOptionClicked(buttons[curMenuItem].name);
+
+                Debug.Log(buttons[curMenuItem].name);
             }
         }
     }
 
-    private void setOptionsCountersOnLoad()
+    private void setOptionsCounters(string name)
     {
         GameDataConfig config = DBOperationsController.element.LoadSaving();
 
         TextMeshProUGUI turboJumperCount = gameObject.transform.Find("turboJumperCount").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI healthBoostCount = gameObject.transform.Find("healthBoostCount").GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI untouchableCount = gameObject.transform.Find("untouchableCount").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI timeBoostCount   = gameObject.transform.Find("timeBoostCount").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI firefigherCount  = gameObject.transform.Find("firefigherCount").GetComponent<TextMeshProUGUI>();
 
         turboJumperCount.text = config.TurboJumperCount.ToString();
         healthBoostCount.text = config.HealthBoostCount.ToString();
-        untouchableCount.text = config.UntouchableCount.ToString();
+        timeBoostCount.text   = config.TimeboostCount.ToString();
         firefigherCount.text  = config.FirefigherCount.ToString();
     }
 

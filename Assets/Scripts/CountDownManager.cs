@@ -6,7 +6,7 @@ public class CountDownManager : MonoBehaviour
 {
     private CommonConfig config = new CommonConfig();
 
-    public float timeRemaining = 10;
+    public float timeRemaining = 20;
     public bool timerIsRunning = false;
     public TextMeshProUGUI timeText;
 
@@ -17,6 +17,8 @@ public class CountDownManager : MonoBehaviour
         timeText = gameObject.GetComponent<TextMeshProUGUI>();
 
         timeRemaining = config.platformsCount * timeRemaining;
+
+        EventsManager.current.onTimeBoostAction += addTime;
     }
 
     void Update()
@@ -43,6 +45,11 @@ public class CountDownManager : MonoBehaviour
                 EventsManager.current.popupAction(parameters, () => { Time.timeScale = 0; });
             }
         }
+    }
+
+    public void addTime(int number)
+    {
+        timeRemaining = timeRemaining + number;
     }
 
     void DisplayTime(float timeToDisplay)

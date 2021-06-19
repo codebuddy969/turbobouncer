@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.name == "Player")
+        if (collider.gameObject.name == "Player")
         {
-            EventsManager.current.ignitePlayer();
+            EventsManager.current.ignitePlayer(true);
             Destroy(gameObject);
         }
     }
