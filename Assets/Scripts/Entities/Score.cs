@@ -6,6 +6,8 @@ public class Score : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
+            AudioManager.instance.Play("coin");
+            DataStoreManager.store.starsCounter += 1;
             Destroy(gameObject);
         }
     }

@@ -14,6 +14,7 @@ public class Thorns : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
+            AudioManager.instance.Play("spikes");
             Destroy(gameObject);
             healthBar.fillAmount -= 0.30f;
         }

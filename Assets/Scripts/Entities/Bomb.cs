@@ -13,6 +13,8 @@ public class Bomb : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
+            AudioManager.instance.Play("explosion");
+
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.transform.Find("Sphere002").GetComponent<MeshRenderer>().enabled = false;
             gameObject.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();

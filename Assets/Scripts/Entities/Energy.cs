@@ -13,6 +13,7 @@ public class Energy : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
+            AudioManager.instance.Play("power-boost");
             EventsManager.current.turboJumpNotificationShow();
             EventsManager.current.jumpMultiplierChange();
             Destroy(gameObject);

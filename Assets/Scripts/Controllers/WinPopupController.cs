@@ -14,6 +14,8 @@ public class WinPopupController : MonoBehaviour
 
     public void callPopup(Hashtable parameters, Action callback)
     {
+        gameObject.transform.Find("Headline").GetComponent<TextMeshProUGUI>().text = "Level " + ((int)parameters["level"]).ToString();
+
         gameObject.transform.Find("Points").GetComponent<TextMeshProUGUI>().text = ((int)parameters["count"]).ToString();
 
         gameObject.transform.DOScale(new Vector3(1, 1, 1), 2f).SetEase(Ease.InOutElastic).OnComplete(() => { callback?.Invoke(); });
@@ -26,6 +28,11 @@ public class WinPopupController : MonoBehaviour
     }
 
     public void restartGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void continueGame()
     {
         SceneManager.LoadScene("Game");
     }

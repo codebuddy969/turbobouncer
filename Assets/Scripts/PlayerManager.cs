@@ -11,11 +11,16 @@ public class PlayerManager : MonoBehaviour
     public GameObject healthSlider;
     public GameObject energyExplosionPrefab;
 
+    public GameObject jumpButton;
+
     private Rigidbody playerBody;
 
     private Image healthBar;
     private Image energyBar;
 
+    private AudioManager audioManager;
+
+    private float memorySize = 0;
     private int jumpMultiplier = 15;
 
     private bool isDead = false;
@@ -30,6 +35,12 @@ public class PlayerManager : MonoBehaviour
 
         energyBar = energySlider.gameObject.transform.GetChild(0).GetComponent<Image>();
         healthBar = healthSlider.gameObject.transform.GetChild(0).GetComponent<Image>();
+
+        memorySize = SystemInfo.systemMemorySize;
+
+        audioManager = AudioManager.instance;
+
+        audioManager.PlayRandomTrack();
 
         EventsManager.current.onJumpMultiplierChange += changeJumpMultiplierValue;
         EventsManager.current.onIgnitePlayer += ignitePlayer;
@@ -52,7 +63,7 @@ public class PlayerManager : MonoBehaviour
 
         if (isIgnited) healthBar.fillAmount -= 0.0001f;
 
-        energyBar.fillAmount += 0.006f;
+        energyBar.fillAmount += memorySize < 8000 ? 0.018f : 0.004f;
 
         if ((transform.position.y < -1) || (healthBar.fillAmount == 0 && !isDead))
         {
@@ -93,6 +104,21 @@ public class PlayerManager : MonoBehaviour
 
     private void environmentCollisions(Collision collision)
     {
+        if (collision.collider.name.StartsWith("platform")) {
+
+            int index = System.Convert.ToInt32(collision.collider.name.Substring(collision.collider.name.Length - 1));
+
+            GameObject current = GameObject.Find("platform-" + index);
+            GameObject next = GameObject.Find("platform-" + (index + 1));
+
+            if (next)
+            {
+                float angle = Vector2.Angle(current.transform.position, next.transform.position);
+
+                jumpButton.transform.localRotation = Quaternion.Euler(0, 0, current.transform.position.x < next.transform.position.x ? -angle : +angle);
+            }
+        }
+
         if (collision.collider.name.StartsWith("platform") || collision.collider.name == "soil-collider")
         {
             playerBody.AddForce(Vector3.up * 4, ForceMode.VelocityChange);
@@ -107,17 +133,7 @@ public class PlayerManager : MonoBehaviour
             playerBody.angularVelocity = Vector3.zero;
         }
 
-        if (collision.collider.name == "right-limiter")
-        {
-            playerBody.AddForce(Vector3.left * 15, ForceMode.VelocityChange);
-            return;
-        }
-
-        if (collision.collider.name == "left-limiter")
-        {
-            playerBody.AddForce(Vector3.right * 15, ForceMode.VelocityChange);
-            return;
-        }
+        audioManager.Play("ball-hit");
     }
 
     public void changeJumpMultiplierValue()
@@ -139,7 +155,9 @@ public class PlayerManager : MonoBehaviour
 
             playerBody.AddForce(Vector3.up * jumpMultiplier, ForceMode.VelocityChange);
 
-            jumpMultiplier = 15;
+            jumpMultiplier = 12;
+
+            audioManager.Play("jump-boost");
 
             Object.Destroy(prefab, 3.0f);
         }
@@ -154,6 +172,12 @@ public class PlayerManager : MonoBehaviour
         emission.enabled = status;
 
         isIgnited = status;
+
+        if (!status)
+        {
+            audioManager.Stop("fire");
+            audioManager.Play("fire-fade");
+        }
     }
 
     public void pieOptionClicked(string name)

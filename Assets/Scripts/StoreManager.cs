@@ -80,6 +80,7 @@ public class StoreManager : MonoBehaviour
 
                 if (game_config.score < common_config.fireFighterPrice) 
                 {
+                    AudioManager.instance.Play("failed");
                     DOTween.Sequence().Append(score.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f)).Append(score.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
                     return;
                 }
@@ -94,6 +95,7 @@ public class StoreManager : MonoBehaviour
 
                 if (game_config.score < common_config.healthBoostPrice)
                 {
+                    AudioManager.instance.Play("failed");
                     DOTween.Sequence().Append(score.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f)).Append(score.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
                     return;
                 }
@@ -109,6 +111,7 @@ public class StoreManager : MonoBehaviour
 
                 if (game_config.score < common_config.turboJumperPrice)
                 {
+                    AudioManager.instance.Play("failed");
                     DOTween.Sequence().Append(score.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f)).Append(score.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
                     return;
                 }
@@ -124,6 +127,7 @@ public class StoreManager : MonoBehaviour
 
                 if (game_config.score < common_config.timeBoostPrice)
                 {
+                    AudioManager.instance.Play("failed");
                     DOTween.Sequence().Append(score.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f)).Append(score.DOScale(new Vector3(1f, 1f, 1f), 0.3f));
                     return;
                 }
@@ -135,5 +139,7 @@ public class StoreManager : MonoBehaviour
 
                 break;
         }
+
+        AudioManager.instance.Play("coin");
     }
 }

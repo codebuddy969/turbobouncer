@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
+            AudioManager.instance.Play("health-boost-2");
             Destroy(gameObject);
             healthBar.fillAmount = healthBar.fillAmount + 0.60f;
         }

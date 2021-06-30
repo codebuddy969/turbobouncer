@@ -3,14 +3,19 @@ using UnityEngine;
 public class PlatformsManager : MonoBehaviour
 {
     private CommonConfig config = new CommonConfig();
+    private GameDataConfig game_config;
 
+    private int skinSelection;
     private int platformsCount;
     public int interval = 6;
     public GameObject ball;
     private Vector3 lastPlatformPosition = new Vector3(0, 3.0f, 0);
     private Vector3 primitivePosition;
 
-    public GameObject platforms;
+    public GameObject soil;
+    public Sprite[] soilSprites;
+    public GameObject[] platforms;
+
     public GameObject fire;
     public GameObject heart;
     public GameObject thorns;
@@ -20,10 +25,16 @@ public class PlatformsManager : MonoBehaviour
     public GameObject win;
     void Start()
     {
-        for (int i = 0; i <= config.platformsCount; i += 1)
+        game_config = DBOperationsController.element.LoadSaving();
+
+        skinSelection = Random.Range(0, 2);
+
+        for (int i = 0; i <= config.platformsCount + game_config.level; i += 1)
         {
             generatePlatforms(i);
         }
+
+        soil.GetComponent<SpriteRenderer>().sprite = soilSprites[skinSelection];
     }
 
     void generatePlatforms(int index)
@@ -70,7 +81,7 @@ public class PlatformsManager : MonoBehaviour
 
         collider.size = new Vector3(1.8f, 1.2f, 1.0f);
 
-        renderer.sprite = platforms.transform.GetChild(randomIndex).GetComponent<SpriteRenderer>().sprite;
+        renderer.sprite = platforms[skinSelection].transform.GetChild(randomIndex).GetComponent<SpriteRenderer>().sprite;
 
         platform.name = "platform-" + index;
         platform.transform.position = primitivePosition;
@@ -88,7 +99,7 @@ public class PlatformsManager : MonoBehaviour
     {
         int index = Random.Range(0, 6);
         float dividedPosition = scale.x / 2;
-        bool lastPlatform = config.platformsCount == platformIndex;
+        bool lastPlatform = (config.platformsCount + game_config.level) == platformIndex;
         float randomHorizontalPosition = Random.Range(-dividedPosition, dividedPosition);
 
         GameObject[] enemy = new GameObject[] { fire, thorns, bomb, energy, heart, score };

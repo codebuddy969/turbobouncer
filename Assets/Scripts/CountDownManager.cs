@@ -16,7 +16,9 @@ public class CountDownManager : MonoBehaviour
 
         timeText = gameObject.GetComponent<TextMeshProUGUI>();
 
-        timeRemaining = config.platformsCount * timeRemaining;
+        GameDataConfig game_config = DBOperationsController.element.LoadSaving();
+
+        timeRemaining = (config.platformsCount + game_config.level) * timeRemaining;
 
         EventsManager.current.onTimeBoostAction += addTime;
     }

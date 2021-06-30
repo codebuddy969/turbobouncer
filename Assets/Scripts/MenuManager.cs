@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     GameDataConfig config;
+    public AudioManager audioManager;
 
     public Canvas homeMenuScreen;
     public Canvas optionsMenuScreen;
@@ -21,6 +22,8 @@ public class MenuManager : MonoBehaviour
 
         musicSlider.value = config.musicLevel;
         effectsSlider.value = config.effectsLevel;
+
+        audioManager.Play("main-theme");
     }
 
     private void checkShopMenuScreenStatus()
@@ -43,6 +46,8 @@ public class MenuManager : MonoBehaviour
         homeMenuScreen.gameObject.SetActive(false);
         optionsMenuScreen.gameObject.SetActive(true);
         shopMenuScreen.gameObject.SetActive(false);
+
+        audioManager.Play("click");
     }
 
     public void showShopMenuScreen()
@@ -50,18 +55,24 @@ public class MenuManager : MonoBehaviour
         homeMenuScreen.gameObject.SetActive(false);
         optionsMenuScreen.gameObject.SetActive(false);
         shopMenuScreen.gameObject.SetActive(true);
+
+        audioManager.Play("click");
     }
 
-    public void musicValueChange(Slider slider)
+    public void musicValueChange()
     {
-        config.musicLevel = slider.value;
+        config.musicLevel = musicSlider.value;
+
+        audioManager.MusicVolumeControl(musicSlider.value / 3);
 
         DBOperationsController.element.CreateSaving(config);
     }
 
-    public void fxValueChange(Slider slider)
+    public void fxValueChange()
     {
-        config.effectsLevel = slider.value;
+        config.effectsLevel = effectsSlider.value;
+
+        audioManager.EffectsVolumeControl(effectsSlider.value / 3);
 
         DBOperationsController.element.CreateSaving(config);
     }
