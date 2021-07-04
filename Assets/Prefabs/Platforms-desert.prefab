@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865849503864180036}
   m_Layer: 0
-  m_Name: Platforms-forest
+  m_Name: Platforms-desert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

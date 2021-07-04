@@ -97,4 +97,15 @@ public class EventsManager : MonoBehaviour
             onHidePieMenu();
         }
     }
+
+    //----------------------------------------------------
+
+    public event Action onScreenCapture;
+    public void screenCapture()
+    {
+        if (onScreenCapture != null)
+        {
+            onScreenCapture();
+        }
+    }
 }

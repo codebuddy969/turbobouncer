@@ -27,7 +27,7 @@ public class PlatformsManager : MonoBehaviour
     {
         game_config = DBOperationsController.element.LoadSaving();
 
-        skinSelection = Random.Range(0, 2);
+        skinSelection = Random.Range(0, 3);
 
         for (int i = 0; i <= config.platformsCount + game_config.level; i += 1)
         {
