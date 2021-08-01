@@ -100,12 +100,12 @@ public class EventsManager : MonoBehaviour
 
     //----------------------------------------------------
 
-    public event Action onScreenCapture;
-    public void screenCapture()
+    public event Action onShowFacebookPopup;
+    public void showFacebookPopup()
     {
-        if (onScreenCapture != null)
+        if (onShowFacebookPopup != null)
         {
-            onScreenCapture();
+            onShowFacebookPopup();
         }
     }
 }

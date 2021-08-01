@@ -42,6 +42,8 @@ public class PlayerManager : MonoBehaviour
 
         audioManager.PlayRandomTrack();
 
+        EventsManager.current.showFacebookPopup();
+
         EventsManager.current.onJumpMultiplierChange += changeJumpMultiplierValue;
         EventsManager.current.onIgnitePlayer += ignitePlayer;
         EventsManager.current.onPieOptionClicked += pieOptionClicked;
